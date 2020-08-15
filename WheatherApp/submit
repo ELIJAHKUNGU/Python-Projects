@@ -1,0 +1,33 @@
+def Submit():
+    # Connecting to the database
+    connect = sqlite3.connect('invetory_book.db')
+    # create a cursor
+    cursor = connect.cursor()
+
+    # if(len(entry_pid.get() !=0) and len(entry_name.get()) and len(entry_qty.get()) and len(entry_price.get())
+    # and len(entry_company.get()) and len(entry_contact.get())):
+    # Insert into Table
+    cursor.execute("INSERT INTO products VALUES"
+                   " (:entry_pid,:entry_name,:entry_price,:entry_qty,:entry_company,:entry_contact)",
+                   {
+                       'entry_pid': entry_pid.get(),
+                       'entry_name': entry_name.get(),
+                       'entry_price': entry_price.get(),
+                       'entry_qty': entry_qty.get(),
+                       'entry_company': entry_company.get(),
+                       'entry_contact': entry_contact.get()
+                   })
+
+    messagebox.showinfo("Warehouse Inventory Sales Purchase", "Data Added Successfully")
+
+    entry_pid.delete(0, END)
+    entry_name.delete(0, END)
+    entry_price.delete(0, END)
+    entry_qty.delete(0, END)
+    entry_company.delete(0, END)
+    entry_contact.delete(0, END)
+    # commit changes
+    connect.commit()
+
+    # Close connection
+    connect.close()
